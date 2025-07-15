@@ -124,10 +124,13 @@
               box1: this,
               box2: ground
             })) {
-              const friction = 0.5
-              this.velocity.y *= friction
-              this.velocity.y = -this.velocity.y
-            } else this.position.y += this.velocity.y
+              this.velocity.y = 0
+              this.isOnGround = true
+              this.position.y = ground.top + this.height / 2
+            } else {
+              this.isOnGround = false
+              this.position.y += this.velocity.y
+            }
           }
       }
 
@@ -213,7 +216,9 @@
           keys.w.pressed = true
           break
           case 'Space':
-          cube.velocity.y = 0.08, true
+          if (cube.isOnGround) {
+            cube.velocity.y = 0.08
+          }
           break
         
 
