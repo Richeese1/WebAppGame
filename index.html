@@ -49,10 +49,7 @@
     </div>
     <button id="playBtn">Play</button>
 
-    <script
-      async
-      src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"
-    ></script>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
     <script type="importmap">
       {
         "imports": {
@@ -176,6 +173,12 @@
         cube.velocity.z = keys['KeyW'] ? -0.07 : keys['KeyS'] ? 0.07 : 0;
 
         cube.update(ground);
+
+        // 🔒 Invisible wall constraints
+        const limitX = ground.width / 2 - cube.width / 2;
+        const limitZ = ground.depth / 2 - cube.depth / 2;
+        cube.position.x = Math.max(-limitX, Math.min(limitX, cube.position.x));
+        cube.position.z = Math.max(-limitZ, Math.min(limitZ, cube.position.z));
 
         enemies.forEach((enemy) => {
           enemy.update(ground);
